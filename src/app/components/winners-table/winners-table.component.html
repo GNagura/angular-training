@@ -1,0 +1,8 @@
+@if (results$ !== null) {
+  @for (race of (results$|async) ?? []; track race) {
+    {{ race.raceName }}
+    <!-- How to deal with this array   -->
+    {{ race.Results }}
+  }
+
+}

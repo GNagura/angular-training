@@ -1,0 +1,14 @@
+<app-season-input (selectedSeasonChange)="onSeasonChange($event)"></app-season-input>
+
+@if ((selectedSeason !== '')) {
+  <app-round-input [responseInput]="selectedSeason"
+                   (selectedRoundChange)="onRoundChange($event)"></app-round-input>
+}
+
+@if (selectedSeason !== '' && selectedRound !== '') {
+  <app-winners-table [responseInputSeason]="selectedSeason"
+                     [responseInputRound]="selectedRound"></app-winners-table>
+}
+
+
+
