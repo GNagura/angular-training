@@ -5,6 +5,7 @@ import {MatOption, MatSelect} from '@angular/material/select';
 import {RoundInputComponent} from '../round-input/round-input.component';
 import {SeasonInputComponent} from '../season-input/season-input.component';
 import {WinnersTableComponent} from '../winners-table/winners-table.component';
+import {DriversInfoComponent} from '../drivers-info/drivers-info.component';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,8 @@ import {WinnersTableComponent} from '../winners-table/winners-table.component';
     MatLabel,
     RoundInputComponent,
     SeasonInputComponent,
-    WinnersTableComponent
+    WinnersTableComponent,
+    DriversInfoComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
@@ -26,8 +28,8 @@ import {WinnersTableComponent} from '../winners-table/winners-table.component';
 export class MenuComponent {
 
   selectedSeason = '';
-  selectedRound = ''
-
+  selectedRound = '';
+  winnersUrl = ''
 
   onRoundChange(round: string) {
     this.selectedRound = round
@@ -37,4 +39,7 @@ export class MenuComponent {
     this.selectedSeason = season
   }
 
+  onWinnerChange(url: string) {
+    this.winnersUrl = url
+  }
 }

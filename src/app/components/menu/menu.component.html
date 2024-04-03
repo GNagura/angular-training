@@ -1,3 +1,4 @@
+<script src="../winners-table/winners-table.component.ts"></script>
 <app-season-input (selectedSeasonChange)="onSeasonChange($event)"></app-season-input>
 
 @if ((selectedSeason !== '')) {
@@ -7,7 +8,14 @@
 
 @if (selectedSeason !== '' && selectedRound !== '') {
   <app-winners-table [responseInputSeason]="selectedSeason"
-                     [responseInputRound]="selectedRound"></app-winners-table>
+                     [responseInputRound]="selectedRound"
+                     (winnersUrl)="onWinnerChange($event)"
+  ></app-winners-table>
+}
+
+@if (winnersUrl.length) {
+  <app-drivers-info [responseWinnersUrl]="winnersUrl"></app-drivers-info>
+
 }
 
 

@@ -14,7 +14,7 @@ export class F1Service {
   }
 
   getSeasons() {
-    return this.http.get <SeasonsResponse>('https://ergast.com/api/f1/seasons.json')
+    return this.http.get <SeasonsResponse>('https://ergast.com/api/f1/seasons.json?limit=100')
       .pipe(retry(2), take(1), catchError(err => {
           console.error(err)
           return of(
@@ -138,8 +138,6 @@ export class F1Service {
   }
 
   getRaceResults(season: string, round: string) {
-    console.log(season)
-    console.log(round)
     return this.http.get<ResultsResponse>(`https://ergast.com/api/f1/${season}/${round}/results.json`)
       .pipe(retry(2), take(1), catchError(err => {
           console.error(err)
