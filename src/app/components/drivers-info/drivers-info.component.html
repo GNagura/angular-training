@@ -1,2 +1,14 @@
-<p>In drivers info</p>
-<p>{{ winnersUrl }}</p>
+@if ((f1Service.results$|async); as results) {
+  @if (results.MRData) {
+    <div class="podiumContainer">
+
+      @for (race of results.MRData.RaceTable.Races; track race.round) {
+        @for (raceResults of race.Results; let i = $index; track raceResults.position) {
+          @if (+raceResults.position == 1) {
+            <h2>{{ raceResults.Driver.givenName }} {{ raceResults.Driver.familyName }}</h2>
+          }
+        }
+      }
+    </div>
+  }
+}

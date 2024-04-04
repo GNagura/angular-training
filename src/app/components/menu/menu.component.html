@@ -1,19 +1,29 @@
-<app-season-input></app-season-input>
+<div class="container">
+  <div class="left-panel">
+    <h2>Formula 1</h2>
+    <app-season-input></app-season-input>
 
 
-@if (f1Service.selectedSeason) {
-  <app-round-input></app-round-input>
-}
+    @if (f1Service.selectedSeason) {
+      <app-round-input></app-round-input>
+    }
+  </div>
 
-@if (f1Service.selectedRound != '' && f1Service.selectedSeason != '') {
-  <app-winners-table></app-winners-table>
-}
+  <div class="middle-panel">
+    @if (f1Service.selectedRound != '' && f1Service.selectedSeason != '') {
+      <app-podium></app-podium>
 
+      <app-winners-table></app-winners-table>
+    }
 
-<!--<app-podium></app-podium>-->
+  </div>
+  <div class="right-panel">
 
+    <app-drivers-info></app-drivers-info>
 
-<!--<app-drivers-info></app-drivers-info>-->
+  </div>
+</div>
+
 
 
 

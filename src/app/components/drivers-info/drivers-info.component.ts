@@ -1,16 +1,17 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {F1Service} from '../../services/f1.service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-drivers-info',
   standalone: true,
-  imports: [],
+  imports: [
+    AsyncPipe
+  ],
   templateUrl: './drivers-info.component.html',
   styleUrl: './drivers-info.component.scss'
 })
 export class DriversInfoComponent {
-  winnersUrl = ''
+  f1Service = inject(F1Service)
 
-  @Input() set responseWinnersUrl(resp: string) {
-    this.winnersUrl = resp
-  }
 }

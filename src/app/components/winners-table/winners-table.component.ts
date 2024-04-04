@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {F1Service} from '../../services/f1.service';
 import {AsyncPipe, JsonPipe, NgIf} from '@angular/common';
 import {
@@ -73,8 +73,6 @@ export class WinnersTableComponent {
   }
 
   f1Service = inject(F1Service)
-  winnersUrl = new EventEmitter();
-  podiumRacers = new EventEmitter;
 
   constructor() {
     this.f1Service.getRaceResults()
