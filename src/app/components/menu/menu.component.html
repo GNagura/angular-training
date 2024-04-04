@@ -1,22 +1,21 @@
-<script src="../winners-table/winners-table.component.ts"></script>
-<app-season-input (selectedSeasonChange)="onSeasonChange($event)"></app-season-input>
+<app-season-input></app-season-input>
 
-@if ((selectedSeason !== '')) {
-  <app-round-input [responseInput]="selectedSeason"
-                   (selectedRoundChange)="onRoundChange($event)"></app-round-input>
+
+@if (f1Service.selectedSeason) {
+  <app-round-input></app-round-input>
 }
 
-@if (selectedSeason !== '' && selectedRound !== '') {
-  <app-winners-table [responseInputSeason]="selectedSeason"
-                     [responseInputRound]="selectedRound"
-                     (winnersUrl)="onWinnerChange($event)"
-  ></app-winners-table>
+@if (f1Service.selectedRound != '' && f1Service.selectedSeason != '') {
+  <app-winners-table></app-winners-table>
 }
 
-@if (winnersUrl.length) {
-  <app-drivers-info [responseWinnersUrl]="winnersUrl"></app-drivers-info>
 
-}
+<!--<app-podium></app-podium>-->
+
+
+<!--<app-drivers-info></app-drivers-info>-->
+
+
 
 
 

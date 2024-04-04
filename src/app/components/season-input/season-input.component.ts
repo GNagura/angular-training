@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption} from '@angular/material/autocomplete';
@@ -20,11 +20,9 @@ import {F1Service} from '../../services/f1.service';
 })
 export class SeasonInputComponent {
 
-  selectedSeason = ''
-  @Output() selectedSeasonChange = new EventEmitter<string>()
-  seasons$ = inject(F1Service).getSeasons()
+  f1Service = inject(F1Service)
 
-  onSeasonSelectionChange() {
-    this.selectedSeasonChange.emit(this.selectedSeason)
+  constructor() {
+    this.f1Service.getSeasons()
   }
 }

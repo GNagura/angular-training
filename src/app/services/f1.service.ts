@@ -1,14 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SeasonsResponse} from '../models/f1-season';
-import {catchError, map, of, retry, take} from 'rxjs';
-import {RaceResponse} from '../models/f1-rounds';
+import {BehaviorSubject, catchError, of, retry, take} from 'rxjs';
+import {Race, RaceResponse} from '../models/f1-rounds';
 import {ResultsResponse} from '../models/f1-results';
 
 @Injectable({
   providedIn: 'root'
 })
 export class F1Service {
+
+  seasons$ = new BehaviorSubject<string[]>([]);
+  races$ = new BehaviorSubject<Race[]>([])
+  results$ = new BehaviorSubject<ResultsResponse>({} as ResultsResponse)
+  selectedSeason = '';
+  selectedRound = '';
 
   constructor(private http: HttpClient) {
   }
@@ -122,30 +128,40 @@ export class F1Service {
               }
             } as SeasonsResponse
           )
-        }), map(response => response.MRData.SeasonTable.Seasons.map(season => season.season))
-      )
+        })
+      ).subscribe(response => {
+        const seasons = response.MRData.SeasonTable.Seasons.map(seasonObj => seasonObj.season);
+        this.seasons$.next(seasons)
+      })
+
   }
 
-  getRounds(season: string) {
-    return this.http.get<RaceResponse>(`https://ergast.com/api/f1/${season}.json`)
+
+  getRounds() {
+    return this.http.get<RaceResponse>(`https://ergast.com/api/f1/${this.selectedSeason}.json`)
       .pipe(retry(2), take(1), catchError(err => {
           console.error(err)
           return of(
             {} as RaceResponse
           )
-        }), map(response => response.MRData.RaceTable.Races)
-      )
+        })
+      ).subscribe(response => {
+        const races = response.MRData.RaceTable.Races;
+        this.races$.next(races)
+      })
   }
 
-  getRaceResults(season: string, round: string) {
-    return this.http.get<ResultsResponse>(`https://ergast.com/api/f1/${season}/${round}/results.json`)
+  getRaceResults() {
+    return this.http.get<ResultsResponse>(`https://ergast.com/api/f1/${this.selectedSeason}/${this.selectedRound}/results.json`)
       .pipe(retry(2), take(1), catchError(err => {
           console.error(err)
           return of(
             {} as ResultsResponse
           )
-        }), map(response => response.MRData.RaceTable.Races)
-      )
+        })
+      ).subscribe(response => {
+        this.results$.next(response)
+      })
   }
 
 }

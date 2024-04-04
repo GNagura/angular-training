@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AsyncPipe, JsonPipe} from '@angular/common';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
@@ -6,6 +6,8 @@ import {RoundInputComponent} from '../round-input/round-input.component';
 import {SeasonInputComponent} from '../season-input/season-input.component';
 import {WinnersTableComponent} from '../winners-table/winners-table.component';
 import {DriversInfoComponent} from '../drivers-info/drivers-info.component';
+import {PodiumComponent} from '../podium/podium.component';
+import {F1Service} from '../../services/f1.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,26 +22,12 @@ import {DriversInfoComponent} from '../drivers-info/drivers-info.component';
     RoundInputComponent,
     SeasonInputComponent,
     WinnersTableComponent,
-    DriversInfoComponent
+    DriversInfoComponent,
+    PodiumComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-
-  selectedSeason = '';
-  selectedRound = '';
-  winnersUrl = ''
-
-  onRoundChange(round: string) {
-    this.selectedRound = round
-  }
-
-  onSeasonChange(season: string) {
-    this.selectedSeason = season
-  }
-
-  onWinnerChange(url: string) {
-    this.winnersUrl = url
-  }
+  f1Service = inject(F1Service)
 }

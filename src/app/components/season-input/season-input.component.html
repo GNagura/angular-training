@@ -1,7 +1,7 @@
 <mat-form-field>
-  <mat-label>Select an option</mat-label>
-  <mat-select [(value)]="selectedSeason" (selectionChange)="onSeasonSelectionChange()">
-    @for (season of (seasons$|async) ?? []; track season) {
+  <mat-label>Select a season</mat-label>
+  <mat-select [(value)]="f1Service.selectedSeason">
+    @for (season of (f1Service.seasons$|async); track season) {
       <mat-option [value]="season">{{ season }}</mat-option>
     }
   </mat-select>

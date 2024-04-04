@@ -1,7 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject} from '@angular/core';
 import {F1Service} from '../../services/f1.service';
-import {Observable} from 'rxjs';
-import {Race} from '../../models/f1-results';
 import {AsyncPipe, JsonPipe, NgIf} from '@angular/common';
 import {
   MatCell,
@@ -38,12 +36,7 @@ import {
   styleUrl: './winners-table.component.scss'
 })
 export class WinnersTableComponent {
-  selectedSeason!: string;
-  selectedRound !: string;
-  selectedRoundName !: string;
-  results$: Observable<Race[]> | undefined;
   displayedColumns: string[] = ['position', 'driver', 'time', 'points'];
-  @Output() winnersUrl = new EventEmitter<string>()
 
 
   public countryList: { [key: string]: string } = {
@@ -79,43 +72,13 @@ export class WinnersTableComponent {
     Portuguese: 'PT'
   }
 
-  constructor(private f1Service: F1Service) {
+  f1Service = inject(F1Service)
+  winnersUrl = new EventEmitter();
+  podiumRacers = new EventEmitter;
 
+  constructor() {
+    this.f1Service.getRaceResults()
   }
 
-  getResults() {
-    if (this.selectedSeason.length && this.selectedRound.length) {
-      this.results$ = this.f1Service.getRaceResults(this.selectedSeason, this.selectedRound);
-    }
-  }
 
-  @Input() set responseInputSeason(resp: string) {
-    if (resp && resp.length > 0) {
-      this.selectedSeason = resp;
-      this.getResults()
-    } else {
-      this.selectedSeason = '';
-    }
-  }
-
-  @Input() set responseInputRound(resp: string) {
-    if (resp && resp.length > 0) {
-      this.selectedRound = resp;
-      this.getResults()
-    } else {
-      this.selectedRound = '';
-    }
-  }
-
-  @Input() set responseInputRoundName(resp: string) {
-    if (resp && resp.length > 0) {
-      this.selectedRoundName = resp;
-    } else {
-      this.selectedRoundName = '';
-    }
-  }
-
-  setUrl(url: string) {
-    this.winnersUrl.emit(url)
-  }
 }

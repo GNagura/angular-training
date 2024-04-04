@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
-import {F1Service} from '../../services/f1.service';
 import {AsyncPipe} from '@angular/common';
-import {Observable} from 'rxjs';
-import {Race} from '../../models/f1-rounds';
+import {F1Service} from '../../services/f1.service';
 
 @Component({
   selector: 'app-round-input',
@@ -21,31 +19,11 @@ import {Race} from '../../models/f1-rounds';
 })
 export class RoundInputComponent {
 
-  season!: string;
-  @Output() selectedRoundChange = new EventEmitter<string>();
-  races$: Observable<Race[]> | undefined;
-  selectedRound = '';
+  f1Service = inject(F1Service)
 
-  constructor(private f1Service: F1Service) {
+  constructor() {
+    this.f1Service.getRounds()
   }
 
-  private getRounds() {
-    if (this.season.length) {
-      this.races$ = this.f1Service.getRounds(this.season);
-    }
-  }
-
-  onRoundSelectionChange() {
-    this.selectedRoundChange.emit(this.selectedRound);
-  }
-
-  @Input() set responseInput(resp: string) {
-    if (resp && resp.length > 0) {
-      this.season = resp;
-      this.getRounds();
-    } else {
-      this.season = '';
-    }
-  }
 }
 
