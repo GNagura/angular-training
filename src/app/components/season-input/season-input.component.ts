@@ -4,6 +4,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption} from '@angular/material/autocomplete';
 import {MatSelect} from '@angular/material/select';
 import {F1Service} from '../../services/f1.service';
+import {ResultsResponse} from '../../models/f1-results';
 
 @Component({
   selector: 'app-season-input',
@@ -24,5 +25,12 @@ export class SeasonInputComponent {
 
   constructor() {
     this.f1Service.getSeasons()
+  }
+
+  getRounds() {
+    this.f1Service.selectedRound = ''
+    this.f1Service.results$.next({} as ResultsResponse)
+    this.f1Service.getRounds()
+
   }
 }

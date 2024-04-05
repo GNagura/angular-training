@@ -1,6 +1,6 @@
 <mat-form-field>
-  <mat-label>Select an option</mat-label>
-  <mat-select [(value)]="f1Service.selectedRound">
+  <mat-label>Select a round</mat-label>
+  <mat-select [(value)]="f1Service.selectedRound" (selectionChange)="getResults()">
     @for (race of (f1Service.races$|async) ?? []; track race) {
       <mat-option [value]="race.round">{{ race.round }}: {{ race.raceName }}
       </mat-option>

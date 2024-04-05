@@ -2,20 +2,29 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  border-block: black 2px;
 }
 
 .left-panel {
-  width: 30%;
+  width: 20%;
   display: flex;
   flex-direction: column;
-  border-block: black 2px;
+  padding: 1rem;
+
+  border: 2px solid slategrey;
+
 }
 
 .middle-panel {
-  width: 30%;
+  width: 40%;
+  padding: 1rem;
+
+  border: 2px solid slategrey;
+
 }
 
 .right-panel {
   width: 30%;
+  padding: 1rem;
+  border: 2px solid slategrey;
+
 }

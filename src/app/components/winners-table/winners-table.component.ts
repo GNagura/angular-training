@@ -13,6 +13,8 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+import {MatProgressBar} from '@angular/material/progress-bar';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-winners-table',
@@ -30,7 +32,9 @@ import {
     MatRowDef,
     MatHeaderRow,
     MatRow,
-    NgIf
+    NgIf,
+    MatProgressBar,
+    MatProgressSpinner
   ],
   templateUrl: './winners-table.component.html',
   styleUrl: './winners-table.component.scss'

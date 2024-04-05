@@ -25,5 +25,10 @@ export class RoundInputComponent {
     this.f1Service.getRounds()
   }
 
+  getResults() {
+    this.f1Service.getRaceResults()
+
+  }
+
 }
 

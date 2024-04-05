@@ -2,34 +2,18 @@
   @if (results.MRData) {
     <h2>Results: Season: {{ results.MRData.RaceTable.season }}
       Round: {{ results.MRData.RaceTable.round }}</h2>
-    <div class="podiumContainer">
+    <div class="podium-container">
 
       @for (race of results.MRData.RaceTable.Races; track race.round) {
         @for (raceResults of race.Results; let i = $index; track raceResults.position) {
           @if (+raceResults.position < 4) {
-            @switch (+raceResults.position) {
-              @case (2) {
-                <div class="pos1">
-                  {{ raceResults.Driver.permanentNumber }}
-                  {{ raceResults.Driver.givenName }}
-                  {{ raceResults.Driver.familyName }}
-                </div>
-              }
-              @case (1) {
-                <div class="pos2">
-                  {{ raceResults.Driver.permanentNumber }}
-                  {{ raceResults.Driver.givenName }}
-                  {{ raceResults.Driver.familyName }}
-                </div>
-              }
-              @case (3) {
-                <div class="pos3">
-                  {{ raceResults.Driver.permanentNumber }}
-                  {{ raceResults.Driver.givenName }}
-                  {{ raceResults.Driver.familyName }}
-                </div>
-              }
-            }
+            <div class="pos pos{{ raceResults.position }}">
+              <h4>
+                {{ raceResults.Driver.permanentNumber }}
+                {{ raceResults.Driver.givenName }}
+                {{ raceResults.Driver.familyName }}
+              </h4>
+            </div>
           }
         }
       }
